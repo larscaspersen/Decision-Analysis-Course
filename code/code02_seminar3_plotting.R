@@ -1,4 +1,9 @@
 library(ggplot2)
+library(tidyverse)
+
+urlfile = "https://raw.githubusercontent.com/CWWhitney/teaching_R/master/participants_data.csv"
+participants_data <- read_csv(url(urlfile)) #download data
+
 
 #####plotting
 # Change the barplot by creating a table of gender 
@@ -185,21 +190,41 @@ ggplot(data = melted_cormat,
   geom_tile()
 
 
+# test your new skills -----------------
+
+# Create a scatter plot, barchart and boxplot (as above)
+# Vary the sample and run the same analysis and plots
+# Save your most interesting figure and share it with us
+
+dsmall <- diamonds[sample(1:nrow(diamonds),size = 250),]
+
+#scatter
+ggplot(dsmall,aes(x=carat,y=price))+geom_point()
+ggplot(dsmall, aes(x=color))+geom_bar(stat = 'count')
+ggplot(dsmall,aes(x=color, y=price))+geom_boxplot() +geom_jitter(width = 0.1,alpha = 0.3)
+
+
+
 #####animation
 library(gganimate)
+library(gifski)
 library(datasauRus)
+
 
 # Check the names for the `datasaurus_dozen` data
 names(datasaurus_dozen)
 
 # Change the 'ease_aes()' option from default 'linear'
 # to 'cubic-in-out' for a smoother appearance
-ggplot(datasaurus_dozen, 
+datasaur <- ggplot(datasaurus_dozen, 
        aes(x = x,
            y = y))+
   geom_point()+
   theme_minimal() +
   transition_states(states = dataset) + 
   ease_aes(default = 'cubic-in-out')
+
+#just animate (, renderer = gifski_renderer()) is necessary because otherwise error message
+animate(datasaur, renderer = gifski_renderer())
 
 #doesnt work, ask cory
