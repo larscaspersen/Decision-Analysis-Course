@@ -104,10 +104,12 @@ plot_distributions(mcSimulation_object = chile_mc_simulation,
                    old_names = "final_result",
                    new_names = "Outcome distribution for profits")
 
-
+#function to draw random variables of e.g. input data set to make a run of the model
 make_variables<-function(est,n=1)
 { x<-random(rho=est, n=n)
 for(i in colnames(x)) assign(i,
                              as.numeric(x[1,i]),envir=.GlobalEnv)
 }
 
+#draw random variables
+make_variables(as.estimate(input_estimates))
