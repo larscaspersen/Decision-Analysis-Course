@@ -112,4 +112,4 @@ for(i in colnames(x)) assign(i,
 }
 
 #draw random variables
-make_variables(as.estimate(input_estimates))
+make_variables(as.estimate(input_estimates),n=4)
